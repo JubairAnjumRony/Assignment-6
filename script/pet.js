@@ -115,7 +115,7 @@ const likeDetails = (img) =>{
     newDiv.classList ="col-span-1 ";
     newDiv.innerHTML =`
     <div>
-     <img src = "${img}" class="w-full max-h overflow-auto auto-rows-min object-cover" alt ="liked pet image"/>
+     <img src = "${img}" class="w-full max-h overflow-auto auto-rows-min object-cover rounded-xl" alt ="liked pet image"/>
      </div>
 `;
   rightDiv.append(newDiv);
