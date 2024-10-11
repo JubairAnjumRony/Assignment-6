@@ -18,12 +18,9 @@ const loadCategories = ()=>{
 const displayCategories = (categories)=>{
     const categoryContainer = document.getElementById("categories");
     categories.forEach ((item) => {
-        console.log(item); 
-
-        // create a button
-        // const button =document.createElement("button");
+        console.log(item);
+        
         const buttonContainer =document.createElement("div");
-        // button.classList = "btn btn-lg flex justify-center items-center gap-4 rounded-xl";
        
         buttonContainer.innerHTML =`
         <button id="btn-${item.category}" onclick ="loadCategoryPets('${item.category}')" class="btn btn-lg px-10  flex justify-center items-center gap-4 rounded-xl category-btn">
@@ -41,17 +38,7 @@ const displayCategories = (categories)=>{
 }
 
 const loadpets = ()=>{
-    //   const petcontainer = document.getElementById("loader");
-    //  petcontainer.innerHTML =`<span class="loading loading-bars loading-lg"></span>`
-    // setTimeout(function(){
-    //     document.getElementById("loader").style.display="block";
-    //     showloader()
-    // },2000)
 
-    // const  showloader =()=>{
-    //     document.getElementById("loader").style.display="block";
-    //     console.log("5389345")
-    // }
 
     fetch('https://openapi.programming-hero.com/api/peddy/pets')
     .then((res)=>res.json())
@@ -77,20 +64,20 @@ const displayDetails = (pet)=>{
     <div class="flex gap-5 border-b">
 
      <div >
-         <h2 class="text-4xl font-extrabold pb-2"> ${pet.pet_name}</h2>
+         <h2 class="text-4xl font-extrabold pb-2"> ${pet.pet_name == null? "Not Mentioned" : pet.pet_name}</h2>
            <div class="flex gap-1 items-center ">
              <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/3388/3388614.png"/>
-             <p class="">Breed: ${pet.breed}</p>
+             <p class="">Breed: ${pet.breed == null? "Not Mentioned" :pet.breed}</p>
           
            </div>
            <div class="flex gap-1 items-center pb-2">
              <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/866/866954.png"/>
-             <p class="">gender: ${pet.gender}</p>
+             <p class="">gender: ${pet.gender == null? "Not Mentioned" : pet.gender}</p>
           
            </div>
            <div class="flex gap-1 items-center pb-2">
              <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/3388/3388614.png"/>
-             <p class="">vaccinated_status: ${pet.vaccinated_status}</p>
+             <p class="">vaccinated_status: ${pet.vaccinated_status == null? "Not Mentioned" : pet.vaccinated_status}</p>
           
            </div>
               
@@ -98,12 +85,12 @@ const displayDetails = (pet)=>{
      <div>
     <div class="flex  gap-1 items-center pt-9">
       <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png"/>
-             <p class="">Birth: ${pet.date_of_birth.split("-")[0]}</p>
+             <p class="">Birth: ${pet.date_of_birth == null? "Not Mentioned" : pet.date_of_birth }</p>
 
     </div>
     <div class="flex items-center gap-1 pb-2">
       <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2150/2150062.png"/>
-             <p class="">price: ${pet.price}</p>
+             <p class="">price: ${pet.price == null? "Not Mentioned" :pet.price}</p>
 
     </div>
     </div>
@@ -137,11 +124,11 @@ const likeDetails = (img) =>{
 const displaypets = (pets)=>{
   const spinner = document.getElementById("loader");
   spinner.classList.add("hidden");
-    const petcontainer = document.getElementById("pets");
-    // petcontainer.classList="grid grid-cols-4";
-    // const maindiv =document.createElement('div');
-    // maindiv.classList =" grid col-span-3"
-     
+  const petcontainer = document.getElementById("pets");
+  // petcontainer.classList="grid grid-cols-4";
+  // const maindiv =document.createElement('div');
+  // maindiv.classList =" grid col-span-3"
+  // petcontainer.classList.add("hidden");
      
     petcontainer.innerHTML ="";
     
@@ -155,11 +142,12 @@ const displaypets = (pets)=>{
          <p class="text-center items-center">Sorry we don't have birds right now.We will let you know when Birds will be available.Now at this moment we are out of stock</p>
         
         </div>`;
+       
     }
     else{
         petcontainer.classList.add("grid");
     }
-
+    // petcontainer.classList.add("hidden");
      
     pets.forEach((item)=>{
         console.log((item));
@@ -175,25 +163,25 @@ const displaypets = (pets)=>{
   </figure>
   <div class="card-body flex flex-col items-start text-left">
    <div class="border-b pb-4"> 
-        <h2 class="card-title text-left">${item.pet_name}</h2>   
+        <h2 class="card-title text-left">${item.pet_name == null? "Not Mentioned" : item.pet_name }</h2>   
        <div class="flex gap-1 items-center ">
              <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/3388/3388614.png"/>
-             <p class="">Breed: ${item.breed}</p>
+             <p class="">Breed: ${item.breed == null? "Not Mentioned" : item.breed}</p>
              </div>
           <div class="flex items-center  gap-1 ">
       <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png"/>
-             <p class="">Birth: ${item.date_of_birth}</p>
+             <p class="">Birth: ${item.date_of_birth == null? "Not Mentioned" :item.date_of_birth}</p>
 
            </div>
            <div class="flex gap-1 items-center pb-2">
              <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/866/866954.png"/>
-             <p class="">gender: ${item.gender}</p>
+             <p class="">gender: ${item.gender == null? "Not Mentioned" :item.gender}</p>
           
            </div>
 
              <div class="flex gap-1 items-center pb-2">
       <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2150/2150062.png"/>
-             <p class="">price: ${item.price}</p>
+             <p class="">price: ${item.price == null? "Not Mentioned" :item.price}</p>
 
     </div>
     </div>
@@ -213,14 +201,7 @@ petcontainer.append(card);
 });
 
 }
-//   anotherDiv.append();
 
-// };
-//  const showloader = ()=>{
-//     console.log("2 seconds gone");
-//     document.getElementById("loader").style.display="none";
-
-//  }
 
 // show pets according to category
 const loadCategoryPets =(name)=>{
@@ -253,7 +234,7 @@ const loadCategoryPets =(name)=>{
     const div = document.createElement("div");
     div.innerHTML = `
       <div class="modal-box flex justify-center flex-col items-center overflow-hidden">
-        <p class="py-4 text-5xl text-red-600"><i class="fa-solid fa-hand-holding-heart"></i></p>
+        <p class="py-4 text-5xl text-red-600"><Img src="https://cdn-icons-png.flaticon.com/128/10809/10809599.png"/></p>
         <h3 class="text-3xl font-bold">Congratulations</h3>
         <p class="py-4 text-xl font-bold text-center">Adoption process is started for your pet</p>
         <p class="py-4"><span id="counter" class="countdown font-mono text-6xl">3</span></p>
@@ -317,32 +298,32 @@ const loadCategoryPets =(name)=>{
 </figure>
 <div class="card-body flex flex-col items-start text-left">
  <div class="border-b pb-4"> 
-      <h2 class="card-title text-left">${item.pet_name}</h2>   
+      <h2 class="card-title text-left">${item.pet_name == null? "Not Mentioned" :item.pet_name}</h2>   
      <div class="flex gap-1 items-center ">
            <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/3388/3388614.png"/>
-           <p class="">Breed: ${item.breed}</p>
+           <p class="">Breed: ${item.breed == null? "Not Mentioned" : item.breed}</p>
            </div>
         <div class="flex items-center  gap-1 ">
     <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png"/>
-           <p class="">Birth: ${item.date_of_birth}</p>
+           <p class="">Birth: ${item.date_of_birth == null? "Not Mentioned" : item.date_of_birth}</p>
 
          </div>
          <div class="flex gap-1 items-center pb-2">
            <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/866/866954.png"/>
-           <p class="">gender: ${item.gender}</p>
+           <p class="">gender: ${item.gender == null? "Not Mentioned" : item.gender}</p>
         
          </div>
 
            <div class="flex gap-1 items-center pb-2">
     <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2150/2150062.png"/>
-           <p class="">price: ${item.price}</p>
+           <p class="">price: ${item.price == null? "Not Mentioned" : item.price}</p>
 
   </div>
   </div>
   <div class="card-actions flex justify-around">
   <button id ="like" onclick = "likeDetails('${item.image}')" class="btn btn-sm"><img src="https://img.icons8.com/?size=32&id=15956&format=png"/></button>
     <button id="btn-${item.petId}"  onclick="adoptBtn(${item.petId})" class="btn btn-sm text-[#0E7A81]">Adopt</button>
-    <button onclick="loadDetails('${item.petId}')" class="btn btn-sm">Details</button>
+    <button onclick="loadDetails('${item.petId}')" class="btn btn-sm text-[#0E7A81]">Details</button>
   </div>
 </div>
   

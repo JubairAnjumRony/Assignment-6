@@ -46,16 +46,10 @@
                     </div>
                     <ul
                       tabindex="0"
-                      class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                      <li><a>Item 1</a></li>
-                      <li>
-                        <a>Parent</a>
-                        <ul class="p-2">
-                          <li><a>Submenu 1</a></li>
-                          <li><a>Submenu 2</a></li>
-                        </ul>
-                      </li>
-                      <li><a>Item 3</a></li>
+                      class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-42 p-2 shadow">
+                      <li><a>Home </a></li>
+                        <li><a>Shop</a></li>
+                      <li><a>Contact</a></li>
                     </ul>
                   </div>
                   <div class="flex gap-2">
@@ -88,12 +82,12 @@
             <br>
             <p class="text-center">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Peddy Website is that it has a variery of pets to choose from.</p>
             <br>
-            <button class="btn  bg-[#0E7A81]"> View More </button>
+            <button id = "viewMore" class="btn  bg-[#0E7A81]"> View More </button>
             <img src="./assets/pet.webp" alt="pet pic">
         </div>
         </section>
 
-        <section class=" py-4 my-4">
+        <section id ="bestFriend" class=" py-4 my-4">
             <div class="w-5/12 mx-auto ">
                 <h1 class="font-black text-4xl text-center">Adopt  Your  Best Friend</h1>
                 <br>
@@ -101,13 +95,13 @@
                 
                 
             </div>
-            <nav id="categories" class="flex justify-around
-             items-center gap-1 py-8"></nav>
+            <nav id="categories" class="w-11/12  mx-auto grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 justify-around
+            items-center gap-1 py-8 pl-8 "></nav>
           
         </section>
 
         <section  class="w-10/12 mx-auto gap-1">
-          <div class="flex justify-between">
+          <div class=" flex flex-col sm:flex-row justify-between ">
           <h2 class="text-black text-left font-black py-4 text-2xl">Best Deals For You</h2>
      
           <div id ="loader"  class="hidden">
@@ -120,14 +114,14 @@
 
 
         </div>
-          <div class=" grid grid-cols-4 ">
+          <div class=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:pl-6  ">
         
-          <div id="pets" class= " col-span-3 grid grid-cols-3 shadow-md">
+          <div id="pets" class= " col-span-2 md:col-span-3 lg:col-span-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 sm:pl-6  shadow-md">
             
 
           </div>
            
-          <div id="anotherdiv" class="grid grid-cols-2 gap-4 auto-rows-min shadow-md">
+          <div id="anotherdiv" class="grid grid-cols-2   gap-4 auto-rows-min shadow-md">
           
           </div>
 
@@ -256,7 +250,12 @@ Openings hours: 9.00 AM - 5.00 PM -->
         </div>
       </div>
     </dialog>
+      <script>
 
+document.getElementById('viewMore').addEventListener('click', function() {
+  document.getElementById('bestFriend').scrollIntoView({ behavior: 'smooth' });
+});
+      </script>
 
 
     <script src ="./script/pet.js"></script>
