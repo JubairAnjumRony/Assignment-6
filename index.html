@@ -99,6 +99,7 @@
                 <br>
                 <p class="font-normal text-lg text-center">It is a long known fact the pets are human second best friend.They will stay always with you.They are caring can live with you anywhere</p>
                 
+                
             </div>
             <nav id="categories" class="flex justify-around
              items-center gap-1 py-8"></nav>
@@ -108,7 +109,16 @@
         <section  class="w-10/12 mx-auto gap-1">
           <div class="flex justify-between">
           <h2 class="text-black text-left font-black py-4 text-2xl">Best Deals For You</h2>
-          <button id="sort" class="btn btn-accent bg-[#0E7A81] rounded-2xl py-4">Sort By price</button>
+     
+          <div id ="loader"  class="hidden">
+            <span class="loading loading-bars loading-lg"></span> 
+          </div>
+
+          <button id="sort" onclick=" loadSortedCards()" class="btn btn-accent bg-[#0E7A81] rounded-2xl py-4">Sort By price</button>
+          
+          
+
+
         </div>
           <div class=" grid grid-cols-4 ">
         
@@ -125,9 +135,7 @@
       
         </section>
 
-        <div id ="loader hidden" >
-          <span class="loading loading-bars loading-lg"></span>
-        </div>
+       
     </main>
 
      <!-- Location: av. Washington 165, NY CA 54003
@@ -232,6 +240,24 @@ Openings hours: 9.00 AM - 5.00 PM -->
         </div>
       </div>
     </dialog>
+
+    <!-- adopt model -->
+
+    <button id="showModalData" class="btn hidden" onclick="custom_modal.showModal()">open modal</button>
+    <dialog id="modal" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <div id="modal-content">
+        </div>
+        <div class="modal-action">
+          <form method="dialog" class="w-full">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn w-full ">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+
 
     <script src ="./script/pet.js"></script>
 </body>

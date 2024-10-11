@@ -43,15 +43,15 @@ const displayCategories = (categories)=>{
 const loadpets = ()=>{
     //   const petcontainer = document.getElementById("loader");
     //  petcontainer.innerHTML =`<span class="loading loading-bars loading-lg"></span>`
-    setTimeout(function(){
-        document.getElementById("loader").style.display="block";
-        showloader()
-    },2000)
+    // setTimeout(function(){
+    //     document.getElementById("loader").style.display="block";
+    //     showloader()
+    // },2000)
 
-    const  showloader =()=>{
-        document.getElementById("loader").style.display="block";
-        console.log("5389345")
-    }
+    // const  showloader =()=>{
+    //     document.getElementById("loader").style.display="block";
+    //     console.log("5389345")
+    // }
 
     fetch('https://openapi.programming-hero.com/api/peddy/pets')
     .then((res)=>res.json())
@@ -135,15 +135,13 @@ const likeDetails = (img) =>{
 }
 
 const displaypets = (pets)=>{
+  const spinner = document.getElementById("loader");
+  spinner.classList.add("hidden");
     const petcontainer = document.getElementById("pets");
     // petcontainer.classList="grid grid-cols-4";
     // const maindiv =document.createElement('div');
     // maindiv.classList =" grid col-span-3"
-    
-        // document.getElementById("loader").style.display="none";
-        // petcontainer.innerHTML = `
-        //  showloader();
-        // `
+     
      
     petcontainer.innerHTML ="";
     
@@ -201,7 +199,7 @@ const displaypets = (pets)=>{
     </div>
     <div class="card-actions flex justify-around">
     <button id ="like" onclick = "likeDetails('${item.image}')" class="btn btn-sm"><img src="https://img.icons8.com/?size=32&id=15956&format=png"/></button>
-      <button id="adopt" class="btn btn-sm">Adopt</button>
+      <button id="btn-${item.petId}"  onclick="adoptBtn(${item.petId})" class="btn btn-sm text-[#0E7A81]">Adopt</button>
       <button onclick="loadDetails('${item.petId}')" class="btn btn-sm">Details</button>
     </div>
   </div>
@@ -227,7 +225,8 @@ petcontainer.append(card);
 // show pets according to category
 const loadCategoryPets =(name)=>{
    
-
+  const spinner = document.getElementById("loader");
+  spinner.classList.remove("hidden");
     fetch(`https://openapi.programming-hero.com/api/peddy/category/${name}`)
     .then((res)=>res.json())
 
@@ -236,9 +235,127 @@ const loadCategoryPets =(name)=>{
         removeActiveClass();
         const activeBtn = document.getElementById(`btn-${name}`);
         activeBtn.classList.add("active");
-        displaypets(data.data)
+        setTimeout(function () {
+          displaypets(data.data)
+          
+        }, 2000);
     })
     .catch((error)=>console.log(error));
 };
+
+
+ 
+  //adopt btn functions
+
+  const adoptBtn = async (id) => {
+    const button = document.getElementById("btn-${id}");
+    document.getElementById("modal").innerHTML = "";
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <div class="modal-box flex justify-center flex-col items-center overflow-hidden">
+        <p class="py-4 text-5xl text-red-600"><i class="fa-solid fa-hand-holding-heart"></i></p>
+        <h3 class="text-3xl font-bold">Congratulations</h3>
+        <p class="py-4 text-xl font-bold text-center">Adoption process is started for your pet</p>
+        <p class="py-4"><span id="counter" class="countdown font-mono text-6xl">3</span></p>
+        </div>
+      </div>
+    `;
+  
+    document.getElementById("modal").append(div);
+    document.getElementById("modal").showModal();
+  
+    let counter = 3;
+    const countdownElement = document.getElementById("counter");
+  
+    const interval = setInterval(() => {
+      counter--;
+      countdownElement.textContent = counter;
+  
+      if (counter === 1) {
+        clearInterval(interval);
+        document.getElementById("modal").close();
+        button.innerText = "Adopted";
+        button.disabled = true;
+      }
+    }, 1000);
+  };
+
+
+   //sorted functions
+   const loadSortedCards = async () => {
+    try {
+      const response = await fetch(
+        "https://openapi.programming-hero.com/api/peddy/pets"
+      );
+      const data = await response.json();
+      console.log(data);
+      sort(data.pets);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
+  const sort = (cards) => {
+    cards.sort((a, b) => {
+      const priceA = parseFloat(a.price);
+      const priceB = parseFloat(b.price);
+      return priceB - priceA;
+    });
+
+    document.getElementById("pets").innerHTML =" ";
+    cards.forEach((item)=>{
+      console.log((item));
+
+  const card =document.createElement('div');
+  card.classList="card  col-span-1 ";
+  card.innerHTML =`
+     <figure class="px-10 pt-10">
+  <img
+    src="${item.image}"
+    alt="Shoes"
+    class="rounded-xl" />
+</figure>
+<div class="card-body flex flex-col items-start text-left">
+ <div class="border-b pb-4"> 
+      <h2 class="card-title text-left">${item.pet_name}</h2>   
+     <div class="flex gap-1 items-center ">
+           <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/3388/3388614.png"/>
+           <p class="">Breed: ${item.breed}</p>
+           </div>
+        <div class="flex items-center  gap-1 ">
+    <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png"/>
+           <p class="">Birth: ${item.date_of_birth}</p>
+
+         </div>
+         <div class="flex gap-1 items-center pb-2">
+           <img class="h-[20px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/866/866954.png"/>
+           <p class="">gender: ${item.gender}</p>
+        
+         </div>
+
+           <div class="flex gap-1 items-center pb-2">
+    <img class="h-[15px] w-[20px]" src="https://cdn-icons-png.flaticon.com/128/2150/2150062.png"/>
+           <p class="">price: ${item.price}</p>
+
+  </div>
+  </div>
+  <div class="card-actions flex justify-around">
+  <button id ="like" onclick = "likeDetails('${item.image}')" class="btn btn-sm"><img src="https://img.icons8.com/?size=32&id=15956&format=png"/></button>
+    <button id="btn-${item.petId}"  onclick="adoptBtn(${item.petId})" class="btn btn-sm text-[#0E7A81]">Adopt</button>
+    <button onclick="loadDetails('${item.petId}')" class="btn btn-sm">Details</button>
+  </div>
+</div>
+  
+  `;
+
+
+
+
+document.getElementById("pets").append(card);
+});
+
+}
+    
+
 loadCategories();
 loadpets();
